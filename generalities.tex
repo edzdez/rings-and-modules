@@ -1,0 +1,245 @@
+\subsection{Generalities}
+
+\begin{remark}{Conventions:}
+	\begin{itemize}
+		\item All rings are unital.
+		\item All modules are left-modules.
+		\item All homomorphisms are between modules under the same ring.
+		\item I will \emph{not} be very careful about saying map and homomorphism.
+		      If a map should obviously be a homomorphism, then it is one.
+	\end{itemize}
+\end{remark}
+
+\begin{defn}{Homomorphism}{}
+	Let $R$ be a ring and $M, M'$ be $R$-modules.
+	A map $f : M \to M'$ is a \emph{homomorphism} if
+	\[
+		f(x + y) = f(x) + f(y) \qquad \text{and} \qquad f(xy) = f(x)f(y).
+	\]
+	We denote the set of homomorphism from $M$ to $M'$ by $\Hom(M, M')$.
+
+	$f$ is an \emph{epimorphism} if it is surjective and a \emph{monomorphism} if it is injective.
+
+	$f$ is an \emph{isomorphism} if there exists a homomorphism $f^{-1} : M' \to M$ so that $f \circ f^{-1} = \id_{M'}$ and $f^{-1} \circ f = \id_M$.
+	Equivalently, $f$ is an isomorphism if it is both monic and epic.
+
+	If $M = M'$, then $f$ is called an \emph{endomorphism}.
+	Moreover, if $f$ is also an isomorphism, then $f$ is an \emph{automorphism}.
+\end{defn}
+
+\begin{defn}{Kernel \& Image}{}
+	Let $f : M \to N$ be a homomorphism.
+	Then, we define the \emph{kernel of $f$} to be the set
+	\[
+		\ker(f) \coloneq \set{ x \in M \mid f(x) = 0 }
+	\]
+	and the \emph{image of $f$} to be the set
+	\[
+		\im(f) \coloneq \set{ f(x) \mid x \in M }.
+	\]
+	Observe that $\ker(f)$ is a submodule of $M$ and $\im(f)$ is a submodule of $N$.
+\end{defn}
+
+\begin{defn}{Quotient/Factor Modules}{}
+	Let $M$ be an $R$-module and $N \subset M$ a submodule.
+	Then, $M / N$ is the set of all additive cosets $\bar{x} = x + N$, and is an $R$-module with the operations
+	\[
+		\bar{x} + \bar{y} \coloneq \bar{x + y} \qquad \text{and} \qquad \bar{x} \cdot \bar{y} \coloneq \bar{xy}.
+	\]
+	We remark that these operations are well-defined, and leave the checking of such to the reader.
+\end{defn}
+
+\begin{defn}{Cokernel \& Coimage}{}
+	If $f : M \to N$ is a homomorphism, we define its \emph{cokernel} and \emph{coimage} by
+	\[
+		\coker(f) \coloneq N / \im(f) \qquad \text{and} \qquad \coim(f) \coloneq M / \ker(f)
+	\]
+	In particular, observe that if $N$ is a submodule of $M$ and $j : N \to M$ is the canonical inclusion, then
+	\[
+		\coker(f) = M / j(N) = M / N.
+	\]
+\end{defn}
+
+\begin{theorem}{Universal Property of the Cokernel}{univ-prop-coker}
+	Let $f : N \to M$ be a homomorphism and $\pi : M \to \coker(f) = M / \im(f)$ be the canonical projection.
+	Then,
+	\begin{enumerate}
+		\item $\pi \circ f = 0$.
+		\item If $\varphi : M \to P$ is another homomorphism satisfying $\varphi \circ f = 0$, then there is a unique homomorphism $\psi : \coker(f) \to P$ so that $\psi \circ \pi = \varphi$, i.e.
+		      the following diagram commutes:
+		      \begin{figure}[H]
+			      \centering
+			      \begin{tikzcd}
+				      N \ar[r,"f"] & M \ar[r, "\pi"] \ar[rd, "\varphi"'] & \coker(f) = M / \im(f) \ar[d, dashrightarrow, "\psi"] \\
+				      & & P
+			      \end{tikzcd}
+		      \end{figure}
+		\item And moreover, if $\varphi$ and $P$ satisfy properties (1) and (2) in the same way as $\pi$ and $\coker(f)$, then $\psi$ is an isomorphism.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	1. Let $x \in N$.
+	Then,
+	\[
+		(\pi \circ f)(x) = \pi(f(x)) = f(x) + \im(f) = 0 + \im(f),
+	\]
+	since $f(x) \in \im(f)$.
+
+	2. We define the map
+	\[
+		\psi : \coker(f) \to P, \qquad \psi(x + \im(f)) = \varphi(x).
+	\]
+	\begin{itemize}
+		\item \emph{$\psi$ is well-defined.}
+		      Let $x + \im(f) = x' + \im(f)$.
+		      Then, $x = x' + i$ for some $i \in \im(f)$, so
+		      \[
+			      \psi(x + \im(f)) = \varphi(x) = \varphi(x' + i) = \varphi(x') + \varphi(i) = \varphi(x') = \psi(x' + \im(f)),
+		      \]
+		      since $\varphi \circ f = 0$.
+		\item \emph{$\psi$ is a homomorphism.}
+		      Let $x + \im(f), y + \im(f) \in \coker(f)$.
+		      Then,
+		      \begin{align*}
+			      \psi((x + \im(f)) + (y + \im(f))) & = \psi((x + y) + \im(f))              \\
+			                                        & = \varphi(x + y)                      \\
+			                                        & = \varphi(x) + \varphi(y)             \\
+			                                        & = \psi(x + \im(f)) + \psi(y + \im(f))
+		      \end{align*}
+		      and
+		      \begin{align*}
+			      \psi((x + \im(f)) (y + \im(f))) & = \psi(xy + \im(f))                  \\
+			                                      & = \varphi(xy)                        \\
+			                                      & = \varphi(x)\varphi(y)               \\
+			                                      & = \psi(x + \im(f)) \psi(y + \im(f)).
+		      \end{align*}
+		\item \emph{$\psi$ is unique.}
+		      Suppose that $\psi' : \coker(f) \to P$ is another map that makes the diagram commute.
+		      Then, for every $x + \im(f) \in \coker(f)$, we have
+		      \[
+			      \psi'(x + \im(f)) = (\psi' \circ \pi)(x) = \varphi(x) = (\psi \circ \pi)(x) = \psi(x + \im(f)),
+		      \]
+		      i.e. $\psi' = \psi$.
+	\end{itemize}
+
+	3. By hypothesis, $\varphi \circ f = 0$, so we obtain by (2) a unique homomorphism $\psi : \coker(f) \to P$ such that $\varphi = \psi \circ \pi$.
+	Similarly, we assumed that $\varphi$ and $P$ satisfy property (2) in the same way as $\pi$ and $\coker(f)$, so we also get a unique homomorphism $\psi' : P \to \coker(f)$ so that $\pi = \psi' \circ \varphi$.
+	Then, $\pi = \psi' \circ \psi \circ \pi$ and $\varphi = \psi \circ \psi' \circ \varphi$.
+	By applying (2) with $\pi$ and $\coker(f)$, we get $\psi' \circ \psi = \id_{\coker(f)}$, and by applying the hypothesis to $\varphi$ and $P$, we get $\psi \circ \psi' = \id_P$.
+	Thus, $\psi$ is indeed an isomorphism, with inverse $\psi'$.
+\end{proof}
+
+In the particular case where $N$ is a submodule of $M$, the Universal Property of the Cokernel gives rise to the Universal Property of the Quotient:
+\begin{theorem}{Universal Property of the Quotient}{univ-prop-quot}
+	Let $N$ be a submodule of $M$ and $\pi : N \to M / N$ the canonical projection.
+	Then, given any homomorphism $f : M \to L$ with $f \circ j = 0$, we obtain a unique homomorphism $\bar{f} : M / N \to L$ so that $f = \bar{f} \circ \pi$.
+\end{theorem}
+\begin{proof}
+	Let $j : N \to M$ be the canonical inclusion and observe that $M / N = \coker(j)$.
+	Thus, by the Universal Property, there is a unique map $\bar{f} : M / N \to L$ so that
+	\begin{figure}[H]
+		\centering
+		\begin{tikzcd}
+			N \ar[r, "j"] & M \ar[r, "\pi"] \ar[dr, "f"'] & M / N \ar[d, dashrightarrow, "\bar{f}"] \\
+			& & L
+		\end{tikzcd}
+	\end{figure}
+	commutes.
+\end{proof}
+
+Thus, we obtain the classic isomorphism theorems:
+
+\begin{theorem}{1st Isomorphism Theorem}{1st-iso}
+	Let $f : N \to M$ be a homomorphism of $R$-modules.
+	Then, there is a unique isomorphism $\psi : N / \ker(f) = \coim(f) \to \im(f)$.
+\end{theorem}
+\begin{proof}
+	Let $f' : N \to \im(f)$ be given by $f'(x) \coloneq f(x)$.
+
+	Let $j : \ker(f) \to N$ be the canonical inclusion and $\pi : N \to N / \ker(f)$.
+	Note that $f' \circ j = f \circ j = 0$, by definition.
+	Hence, by the Universal Property of the Quotient, we obtain a unique map $\bar{f} : N / \ker(f) \to \im(f)$ so that
+	\begin{figure}[H]
+		\centering
+		\begin{tikzcd}
+			\ker(f) \ar[r, "j"] & N \ar[r, "\pi"] \ar[rd, "f'"'] & M / N \ar[d, dashrightarrow, "\bar{f}"] \\
+			& & \im(f)
+		\end{tikzcd}
+	\end{figure}
+	commutes.
+
+	Since $f'$ is surjective, so is $\bar{f}$.
+	Moreover, the kernel of $\bar{f}$ is
+	\begin{multline*}
+		\ker(\bar{f}) = \set{ x + \ker(f) \mid \bar{f}(x + \ker(f)) = (\bar{f} \circ \pi)(x) = f(x) = 0 } \\
+		= \set{ x + \ker(f) \mid x \in \ker(f) } = \set{ 0 + \ker(f) },
+	\end{multline*}
+	so $\bar{f}$ is also injective.
+	Thus, $\bar{f}$ is indeed an isomorphism.
+\end{proof}
+
+\begin{theorem}{2nd (Diamond) Isomorphism Theorem}{2nd-iso}
+	Let $P$ and $N$ be submodules of $M$.
+	Then,
+	\[
+		\frac{N}{N \cap P} \cong \frac{N + P}{P}.
+	\]
+\end{theorem}
+\begin{proof}
+	Let $i : N \cap P \to N$ and $j : N \to N + P$ be the canonical inclusions, and let $\varphi : N + P \to (N + P) / P$ and $\pi : N \to N / (N \cap P)$ be the canonical projections.
+	Observe that $\im(i) = N \cap P \subset P = \ker(\varphi \circ j)$, so $(\varphi \circ j) \circ i = 0$.
+	Thus, by the Universal Property of the Quotient, there is a unique map $\psi : N / (N \cap P) \to (N + P) / P$ so that the following diagram commutes:
+	\begin{figure}[H]
+		\centering
+		\begin{tikzcd}
+			& N \cap P \ar[d, "i"] & \\
+			& N \ar[dl, "\pi"'] \ar[dr, "j"] & \\
+			N / (N \cap P) \ar[dr, dashrightarrow, "\psi"'] & & N + P \ar[dl, "\varphi"] \\
+			& (N + P) / P &
+		\end{tikzcd}
+	\end{figure}
+	We first note that if $(n + p) + P \in (N + P) / P$ (where $n \in N$ and $p \in P$), then
+	\[
+		(n + p) + P = (n + P) + (p + P) = (n + P) + (0 + P) = n + P = (\varphi \circ j)(p),
+	\]
+	i.e. $\varphi \circ j$ is surjective.
+	Thus, so is $\psi$, since $\psi \circ \pi = \varphi \circ j$.
+
+	Moreover, we observe that if $n \in N$ and
+	\[
+		0 = \psi(n + N \cap P) = (\psi \circ \pi)(n) = (j \circ \varphi)(n) = n + P,
+	\]
+	then $n \in P$, too, i.e. $n \in N \cap P$ and thus, $\ker(\psi) = 0$.
+	Therefore, $\psi$ is injective and indeed an isomorphism.
+\end{proof}
+
+\begin{theorem}{3rd Isomorphism Theorem}{3rd-iso}
+	Let $P \subset N \subset M$ be submodules of $M$.
+	Then,
+	\[
+		\frac{M}{N} \cong \frac{M / P}{N / P}.
+	\]
+\end{theorem}
+\begin{proof}
+	Let $j : N \to M$ be the canonical inclusion, and let $\pi : M \to M / N$, $\varphi : M \to M / P$, and $\psi : (M / P) \to (M / P) / (N / P)$ be the canonical projections.
+	Then, observe that $\im(\varphi \circ j) = N / P = \ker(\psi)$, i.e. $\psi \circ \varphi \circ j = 0$.
+	So, by the Universal Property of the Quotient, we obtain a unique map $\lambda : M / N \to (M / P) / (N / P)$ such that
+	\begin{figure}[H]
+		\centering
+		\begin{tikzcd}
+			& N \ar[d, "j"] & \\
+			& M \ar[dl, "\pi"'] \ar[dr, "\varphi"] & \\
+			M / N \ar[dr, dashrightarrow, "\lambda"'] & & M / P \ar[dl, "\psi"] \\
+			& (M / P) / (N / P) &
+		\end{tikzcd}
+	\end{figure}
+	commutes.
+
+	Obviously, $\psi \circ \varphi$ is surjective, so $\lambda$ must be as well.
+	Moreover, if
+	\[
+		0 = \lambda(m + N) = (\lambda \circ \pi)(m) = (\psi \circ \varphi)(m),
+	\]
+	then $m \in N$, so $\ker(\lambda) = 0$ and $\lambda$ is injective.
+	Thus, $\lambda$ is indeed an isomorphism.
+\end{proof}

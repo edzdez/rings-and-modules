@@ -1,0 +1,261 @@
+\usepackage{geometry}
+\geometry{
+	margin=1in,
+}
+
+\usepackage{amssymb,amsmath,amsthm,nccmath}
+\usepackage{esdiff}
+\usepackage{float}
+\usepackage{parskip}[indent=0,skip=2\baselineskip]
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=blue
+}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{braket}
+\usepackage{enumitem}
+\usepackage{attrib}
+\usepackage{dialogue}
+\usepackage{lips}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{stmaryrd}
+\usepackage{lips}
+\usepackage{algorithm}
+\renewcommand{\thealgorithm}{}
+\usepackage{algpseudocode}
+
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usepackage{tikz-cd}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{fit}
+\usetikzlibrary{shapes}
+\usetikzlibrary{matrix}
+\usetikzlibrary{calc}
+\usetikzlibrary{cd}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\bfalph}{\bfseries(\alph*)}
+\newcommand{\eps}{\epsilon}
+\newcommand{\gen}[1]{\left\langle #1 \right\rangle}
+\newcommand{\tors}{\text{tors}}
+\newcommand{\normal}{\vartriangleleft}
+\renewcommand{\bar}[1]{\overline{#1}}
+\renewcommand{\o}[1]{\abs{#1}}
+\renewcommand{\ev}{\operatorname{ev}}
+
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\coim}{coim}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Cent}{Cent}
+\DeclareMathOperator{\lcm}{lcm}
+
+% Header
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{titling}
+
+% \fancyheadoffset{.25cm}
+\lhead{\nouppercase\leftmark}
+\chead{\thetitle}
+\rhead{\theauthor}
+
+\def\lasttheoremtype{}
+\def\theoremtype{theorem}
+\def\exampletype{example}
+\def\defntype{defn}
+\def\exercisetype{exercise}
+
+\usepackage[most]{tcolorbox}
+\usepackage{etoolbox}
+
+\tcbset{
+	theorembox/.style = {
+			enhanced,
+			breakable,
+			sharp corners,
+			frame hidden,
+			parbox = false,
+			colback = NavyBlue!5,
+			borderline north = {0.5mm}{0mm}{NavyBlue!5},
+			borderline south = {0.5mm}{0mm}{NavyBlue!5},
+			borderline east = {0.5mm}{0mm}{NavyBlue!5},
+			borderline west = {0.5mm}{0mm}{NavyBlue},
+			attach title to upper={\ },
+			fonttitle = \bfseries,
+			coltitle = NavyBlue!70!black,
+			separator sign none,
+			description delimiters = {(}{)},
+			description font = \normalfont,
+			terminator sign = .
+		},
+	definitionbox/.style = {
+			theorembox,
+			colback = ForestGreen!5,
+			coltitle = ForestGreen!70!black,
+			borderline north = {0.5mm}{0mm}{ForestGreen!5},
+			borderline south = {0.5mm}{0mm}{ForestGreen!5},
+			borderline east = {0.5mm}{0mm}{ForestGreen!5},
+			borderline west = {0.5mm}{0mm}{ForestGreen},
+		},
+	examplebox/.style = {
+			theorembox,
+			colback = RawSienna!5,
+			coltitle = RawSienna!70!black,
+			borderline north = {0.5mm}{0mm}{RawSienna!5},
+			borderline south = {0.5mm}{0mm}{RawSienna!5},
+			borderline east = {0.5mm}{0mm}{RawSienna!5},
+			borderline west = {0.5mm}{0mm}{RawSienna},
+		},
+	exercisebox/.style = {
+			theorembox,
+			colback = Plum!5,
+			coltitle = Plum!70!black,
+			borderline north = {0.5mm}{0mm}{Plum!5},
+			borderline south = {0.5mm}{0mm}{Plum!5},
+			borderline east = {0.5mm}{0mm}{Plum!5},
+			borderline west = {0.5mm}{0mm}{Plum},
+		},
+	proofbox/.style = {
+			enhanced,
+			breakable,
+			sharp corners,
+			frame hidden,
+			parbox = false,
+			title = Proof.,
+			attach title to upper={\ },
+			fonttitle = \bfseries,
+			colback = black!2,
+			borderline north = {0.5mm}{0mm}{black!2},
+			borderline south = {0.5mm}{0mm}{black!2},
+			borderline east = {0.5mm}{0mm}{black!2},
+			borderline west = {0.5mm}{0mm}{black!75!white},
+			coltitle = black
+		}
+}
+
+\newtcbtheorem[
+	auto counter,
+	number within=section,
+]{theorem}{Theorem}{
+	theorembox,
+}{thm}
+\newtcbtheorem[
+	use counter from=theorem
+]{lemma}{Lemma}{
+	theorembox,
+}{lem}
+\newtcbtheorem[
+	use counter from=theorem
+]{prop}{Proposition}{
+	theorembox,
+}{prop}
+\newtcbtheorem[
+	use counter from=theorem
+]{corollary}{Corollary}{
+	theorembox,
+}{cor}
+
+\newtcbtheorem[
+	auto counter,
+	number within=section
+]{defn}{Definition}{
+	definitionbox,
+}{def}
+
+\newtcolorbox{example}{
+	examplebox,
+	title = Example.,
+}
+\newtcolorbox{remark}{
+	examplebox,
+	title = Remark.,
+}
+\newtcolorbox{note}{
+	examplebox,
+	title = Note.,
+}
+
+\newtcolorbox{exercise}[1]{
+	exercisebox,
+	title = Exercise {#1}.,
+}
+
+\AfterEndEnvironment{theorem}{\def\lasttheoremtype{theorem}}
+\AfterEndEnvironment{lemma}{\def\lasttheoremtype{theorem}}
+\AfterEndEnvironment{prop}{\def\lasttheoremtype{theorem}}
+\AfterEndEnvironment{corollary}{\def\lasttheoremtype{theorem}}
+
+\AfterEndEnvironment{defn}{\def\lasttheoremtype{defn}}
+
+\AfterEndEnvironment{example}{\def\lasttheoremtype{example}}
+\AfterEndEnvironment{remark}{\def\lasttheoremtype{example}}
+\AfterEndEnvironment{note}{\def\lasttheoremtype{example}}
+
+\AfterEndEnvironment{exercise}{\def\lasttheoremtype{exercise}}
+
+\renewenvironment{proof}[1][Proof]{
+	\ifx\lasttheoremtype\theoremtype
+	\vspace{-6pt}
+	\begin{tcolorbox}[
+		proofbox,
+		title = #1.,
+		coltitle = NavyBlue!70!black,
+		borderline west = {0.5mm}{0mm}{NavyBlue},
+	]
+	\else\ifx\lasttheoremtype\exampletype
+	\vspace{-6pt}
+	\begin{tcolorbox}[
+		proofbox,
+		title = #1.,
+		coltitle = RawSienna!70!black,
+		borderline west = {0.5mm}{0mm}{RawSienna},
+	]
+	\else\ifx\lasttheoremtype\defntype
+	\vspace{-6pt}
+	\begin{tcolorbox}[
+		proofbox,
+		title = #1.,
+		coltitle = ForestGreen!70!black,
+		borderline west = {0.5mm}{0mm}{ForestGreen},
+	]
+	\else\ifx\lasttheoremtype\exercisetype
+	\vspace{-6pt}
+	\begin{tcolorbox}[
+		proofbox,
+		title = Solution.,
+		coltitle = Plum!70!black,
+		borderline west = {0.5mm}{0mm}{Plum},
+	]
+	\else
+	\begin{tcolorbox}[proofbox, title = #1.]
+		\fi\fi\fi\fi
+		}
+		{
+		\ifx\lasttheoremtype\exercisetype
+		\else
+			\qed
+		\fi
+	\end{tcolorbox}
+}
+
